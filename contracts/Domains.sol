@@ -12,7 +12,7 @@ contract Domains {
     console.log("This is a constructor");
   }
   // a register function that adds their names to our mapping
-  function register(string calldata name) public {
+  function register(string calldata name) public { // calldata - this indicates the “location” of where the name argument should be stored
     domains[name] = msg.sender;
     console.log("%s has registered a domain!", msg.sender);
   }
