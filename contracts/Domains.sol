@@ -27,7 +27,8 @@ contract Domains is ERC721URIStorage {
   // mapping to store values
   mapping(string => string) public records;
 
-  constructor(string memory _tld) payable ERC721("Khushi Name Service", "KNS") {
+  constructor(string memory _tld) ERC721("Khushi Name Service", "KNS") payable {
+    owner = payable(msg.sender);
     tld = _tld;
     console.log("%s name service deployed", _tld);
   }
