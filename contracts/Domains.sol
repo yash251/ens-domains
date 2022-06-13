@@ -95,7 +95,7 @@ contract Domains is ERC721URIStorage {
     console.log("%s has registered a domain!", msg.sender);
 
     names[newRecordId] = name;
-    
+
     _tokenIds.increment();
   }
 
@@ -137,5 +137,9 @@ contract Domains is ERC721URIStorage {
       console.log("Name for token %d is %s", i, allNames[i]);
     }
     return allNames;
+  }
+
+  function valid(string calldata name) public pure returns (bool) {
+    return StringUtils.strlen(name) >= 3 && StringUtils.strlen(name) <= 15;
   }
 }
