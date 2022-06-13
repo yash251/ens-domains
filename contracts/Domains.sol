@@ -26,6 +26,8 @@ contract Domains is ERC721URIStorage {
   mapping(string => address) public domains;
   // mapping to store values
   mapping(string => string) public records;
+  // mapping to display all domains
+  mapping(uint => string) public names;
 
   constructor(string memory _tld) ERC721("Khushi Name Service", "KNS") payable {
     owner = payable(msg.sender);
@@ -124,5 +126,14 @@ contract Domains is ERC721URIStorage {
 
     (bool, success, ) = msg.sender.call{value: amount}("");
     require(success, "Failed to withdraw MATIC");
+  }
+
+  function getAllNames() public view returns (string[] memory) {
+    console.log("Getting all names from contract");
+    string[] memory allNames = new string[](_tokenIds.current());
+    for (uint i = 0; i < _tokenIds.current(); i++) {
+      console.log("Name for token %d is %s", i, allNames[i]);
+    }
+    return allNames;
   }
 }
