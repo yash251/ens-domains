@@ -29,6 +29,11 @@ contract Domains is ERC721URIStorage {
   // mapping to display all domains
   mapping(uint => string) public names;
 
+  // custom errors
+  error Unauthorized();
+  error AlreadyRegistered();
+  error InvalidName(string name);
+
   constructor(string memory _tld) ERC721("Khushi Name Service", "KNS") payable {
     owner = payable(msg.sender);
     tld = _tld;
@@ -52,7 +57,8 @@ contract Domains is ERC721URIStorage {
   // a register function that adds their names to our mapping
   function register(string calldata name) public payable { // calldata - this indicates the “location” of where the name argument should be stored
     // check that name is unregistered
-    require(domains[name] == address(0));
+    if (domains[name] != address(0)) revert AlreadyRegistered();
+    if (!valid(name)) revert InvalidName(name);
 
     uint _price = price(name);
 
@@ -106,7 +112,7 @@ contract Domains is ERC721URIStorage {
 
   function setRecord(string calldata name, string calldata record) public {
     // check that owner is the txn sender
-    require(domains[name] == msg.sender);
+    if (msg.sender != domains[name]) revert Unauthorized();
     records[name] = record;
   }
 
