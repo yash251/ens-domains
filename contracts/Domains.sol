@@ -94,6 +94,8 @@ contract Domains is ERC721URIStorage {
     domains[name] = msg.sender;
     console.log("%s has registered a domain!", msg.sender);
 
+    names[newRecordId] = name;
+    
     _tokenIds.increment();
   }
 
