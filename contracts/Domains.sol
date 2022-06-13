@@ -117,4 +117,11 @@ contract Domains is ERC721URIStorage {
   function isOwner() public view returns (bool) {
     return msg.sender == owner;
   }
+
+  function withdraw() public onlyOwner {
+    uint amount = address(this).balance;
+
+    (bool, success, ) = msg.sender.call{value: amount}("");
+    require(success, "Failed to withdraw MATIC");
+  }
 }
