@@ -108,4 +108,9 @@ contract Domains is ERC721URIStorage {
   function getRecord(string calldata name) public view returns (string memory) {
     return records[name];
   }
+
+  modifier onlyOwner() {
+    require(isOwner());
+    _;
+  }
 }
