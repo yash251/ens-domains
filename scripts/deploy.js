@@ -5,16 +5,16 @@ const main = async () => {
 
     console.log("Contract deployed to:", domainContract.address);
 
-    let txn = await domainContract.register("yash", { value: hre.ethers.utils.parseEther("0.3") });
+    let txn = await domainContract.register("awesome", { value: hre.ethers.utils.parseEther("0.1") });
     await txn.wait();
-    console.log("Minted domain yash.khushi");
+    console.log("Minted domain awesome.khushi");
 
-    txn = await domainContract.setRecord("yash", "Am I a yash or a khushi??");
+    txn = await domainContract.setRecord("awesome", "Isn't Khushi awesome ??");
     await txn.wait();
-    console.log("Set record for yash.khushi");
+    console.log("Set record for awesome.khushi");
 
-    const address = await domainContract.getAddress("yash");
-    console.log("Owner of domain yash:", address);
+    const address = await domainContract.getAddress("awesome");
+    console.log("Owner of domain awesome:", address);
 
     const balance = await hre.ethers.provider.getBalance(domainContract.address);
     console.log("Contract balance:", hre.ethers.utils.formatEther(balance));
