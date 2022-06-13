@@ -113,4 +113,8 @@ contract Domains is ERC721URIStorage {
     require(isOwner());
     _;
   }
+
+  function isOwner() public view returns (bool) {
+    return msg.sender == owner;
+  }
 }
