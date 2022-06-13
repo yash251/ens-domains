@@ -15,6 +15,8 @@ contract Domains is ERC721URIStorage {
   using Counters for Counters.Counter;
   Counters.Counter private _tokenIds;
 
+  address payable public owner;
+
   // for domain
   string public tld; // top-level domain
 
@@ -132,7 +134,7 @@ contract Domains is ERC721URIStorage {
   function withdraw() public onlyOwner {
     uint amount = address(this).balance;
 
-    (bool, success, ) = msg.sender.call{value: amount}("");
+    (bool success, ) = msg.sender.call{value: amount}("");
     require(success, "Failed to withdraw MATIC");
   }
 
